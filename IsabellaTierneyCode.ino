@@ -1,4 +1,4 @@
-//goal of this code to to determine rpm of encoder
+//The goal of this code to to determine the rpm of the encoder
 //know that the PPR is 17
 //knowing this, record the time every 17 PPR to obtain seconds per revolution
 
@@ -33,23 +33,23 @@ void setup() {
 
 void loop() {
   
-  //speed of enocoder
+  //speed of encoder
   float current_speed = read_speed();
 
   //target speed
-  int target_speed = 10000; //motor rated speed in RPM
+  int target_speed = 4000; //motor rated speed in RPM
 
   //error
   int e = target_speed - current_speed;
 
   //motor power
-  //float power = e;
-  //if(power > 255) {
-  //  power = 255;    
-  //}
+  float power = e;
+  if(power > 255) {
+    power = 255;    
+  }
 
   //signal to motor
-  motorControl(200, 1);
+  motorControl(power, 1);
   
   Serial.print("Position: ");
   Serial.print(pulse_count);
@@ -85,7 +85,7 @@ void StartInterruptA(){
   }
 }
 
-//function with two arguments; power and dirction
+//function with two arguments; power and direction
 //the value of the power is written to the enable pin of the motor drive using PWM
 //direction is used to tell the motor which way to spin
 void motorControl(int pwr, int direct) {
