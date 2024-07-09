@@ -1,0 +1,27 @@
+#define LED_PIN 11
+#define POTENTIOMETER_PIN A1
+#define ENABLE 5
+#define IN1 8
+#define IN2 7
+
+void setup()
+{
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(EN, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+
+}
+void loop()
+{
+  //read value of potentiometer 
+  int potentiometerValue = analogRead(POTENTIOMETER_PIN);
+  //assign direction of the motor
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN1, LOW);
+  //map function to determine potentiometer value 
+  int PWM = map(potentiometerValue, 0, 1023, 0, 255);
+  //write potentiometer value to the LED and the ENABLE pin (to motor)
+  analogWrite(LED_PIN, PWM);
+  analogWrite(ENABLE, PWM);
+}
